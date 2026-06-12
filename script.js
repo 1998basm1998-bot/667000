@@ -703,3 +703,56 @@ function render() {
 }
 
 document.addEventListener('DOMContentLoaded', render);
+
+// PWA Registration & Update Logic
+let newWorker;
+
+function showUpdateBar() {
+  let updateBar = document.getElementById('pwa-update-bar');
+  if (!updateBar) {
+    updateBar = document.createElement('div');
+    updateBar.id = 'pwa-update-bar';
+    updateBar.className = 'fixed top-0 left-0 w-full bg-[#1a4e55] text-white p-4 z-[100] flex justify-between items-center shadow-lg translate-y-[-100%] transition-transform duration-500 rounded-b-2xl max-w-md mx-auto right-0';
+    updateBar.innerHTML = `
+      <div class="flex items-center gap-2">
+        <i data-lucide="download-cloud" class="w-5 h-5 text-goldAccent"></i>
+        <span class="text-sm font-bold">يتوفر تحديث جديد للتطبيق!</span>
+      </div>
+      <button id="pwa-update-btn" class="bg-goldAccent text-tealDark px-4 py-1.5 rounded-xl text-xs font-bold shadow-sm hover:bg-opacity-90 transition-colors">تحديث الآن</button>
+    `;
+    document.body.appendChild(updateBar);
+    lucide.createIcons();
+    
+    document.getElementById('pwa-update-btn').addEventListener('click', () => {
+      if (newWorker) {
+        newWorker.postMessage({ type: 'SKIP_WAITING' });
+      }
+    });
+  }
+  
+  setTimeout(() => {
+    updateBar.classList.remove('translate-y-[-100%]');
+  }, 100);
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(reg => {
+    reg.addEventListener('updatefound', () => {
+      newWorker = reg.installing;
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed') {
+          if (navigator.serviceWorker.controller) {
+            showUpdateBar();
+          }
+        }
+      });
+    });
+  });
+
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  });
+}

@@ -1,0 +1,23 @@
+{
+  "name": "سوق ميسان",
+  "short_name": "سوق ميسان",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e8f2f3",
+  "theme_color": "#37828c",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=192&q=80",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=512&q=80",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "description": "تطبيق سوق ميسان للتسوق الإلكتروني",
+  "dir": "rtl",
+  "lang": "ar"
+}
