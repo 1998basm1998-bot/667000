@@ -263,7 +263,7 @@ function renderContent() {
         <a href="#" class="text-xs text-tealPrimary font-bold">المزيد &gt;</a>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 px-6 mb-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-6 mb-6">
         ${productsHtml}
       </div>
     `;
@@ -294,7 +294,7 @@ function renderContent() {
             المنتجات المفضلة
           </h3>
         </div>
-        ${state.favorites.length === 0 ? emptyHtml : `<div class="grid grid-cols-2 gap-4">${productsHtml}</div>`}
+        ${state.favorites.length === 0 ? emptyHtml : `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">${productsHtml}</div>`}
       </div>
     `;
   } else if (state.activeTab === 'cart') {
@@ -513,11 +513,11 @@ function renderContent() {
         </div>
         
         ${!state.selectedCategory ? `
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             ${catsHtml}
           </div>
         ` : `
-          <div class="grid grid-cols-2 gap-4 fade-in zoom-in-95">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 fade-in zoom-in-95">
             ${prodsHtml}
             ${productsData.filter(p => p.category === state.selectedCategory).length === 0 ? `
               <div class="col-span-2 text-center py-10 opacity-60 font-bold">لا توجد منتجات في هذا التصنيف</div>
@@ -616,10 +616,10 @@ function render() {
   }
 
   const appWrapper = document.getElementById('app-wrapper');
-  appWrapper.className = `bg-gray-100 flex justify-center items-center h-screen m-0 overflow-hidden ${isDark ? 'dark' : ''}`;
+  appWrapper.className = `w-full h-screen m-0 overflow-hidden ${isDark ? 'dark bg-gray-900' : 'bg-appbg'}`;
   
   const appContainer = document.getElementById('app-container');
-  appContainer.className = `w-full max-w-[400px] h-full max-h-[850px] relative rounded-[40px] shadow-2xl border-8 overflow-hidden flex flex-col font-sans transition-colors duration-300 ${isDark ? 'bg-gray-900 border-gray-700' : 'bg-appbg border-gray-800'}`;
+  appContainer.className = `w-full h-full relative overflow-hidden flex flex-col font-sans transition-colors duration-300 ${isDark ? 'bg-gray-900' : 'bg-appbg'}`;
 
   const headerContainer = document.getElementById('header-container');
   headerContainer.innerHTML = `
